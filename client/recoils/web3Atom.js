@@ -80,6 +80,7 @@ export const sendTransaction = async (currentAccount, setIsLoading, formData) =>
     const transactionContract = getEtheriumContract();
     const parsedAmount = ethers.utils.parseEther(amount);
 
+    setIsLoading(true);
     await metamask.request({
       method: 'eth_sendTransaction',
       params: [
@@ -99,7 +100,6 @@ export const sendTransaction = async (currentAccount, setIsLoading, formData) =>
       'TRANSFER',
     );
 
-    setIsLoading(true);
     await transactionHash.wait();
 
     await saveTransaction(
